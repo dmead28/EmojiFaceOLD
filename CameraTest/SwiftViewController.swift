@@ -19,6 +19,8 @@ class SwiftViewController: UIViewController, AFDXDetectorDelegate {
     var cameraView: UIImageView!
     var overlayView: UIImageView!
     
+    let emojiImage = UIImage(asset: .PlainFace)! // for now !
+    
     // Used for experimenting with which point to use
     var variablePoint = 5
     
@@ -52,7 +54,48 @@ class SwiftViewController: UIViewController, AFDXDetectorDelegate {
     
     // MARK: - Experimenting with which points to use
     func incrementVariablePoint() {
-        self.variablePoint += 1
+        self.variablePoint = (self.variablePoint + 1) % 34 // Hard coded for now
+    }
+    
+    func learningPoints(image: UIImage, facePointValues: [NSValue]) {
+        
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { [weak self] in
+            
+            guard let _ = self else { return } // Shouldn't happen (only one controller)
+            
+            UIGraphicsBeginImageContext(image.size)
+            let ctx = UIGraphicsGetCurrentContext()
+            
+            // Experimenting to visualize which points I would like to use. Incremented green to figure out rough regions, then used red to more precisely determine.
+            let green: CGFloat = 0.5 //0.1
+            var red: CGFloat = 0.5
+            
+            let redPoints: Set<Int> = [0, 2, 4, 5, 10, self!.variablePoint]
+            
+            //print("Total: \(facePointValues.count)") // 34
+            for (index, facePointValue) in facePointValues.enumerate() {
+                
+                let point = facePointValue.CGPointValue()
+                //green += 0.04 // using red to fine tune
+                red = redPoints.contains(index) ? 1.0 : 0.5
+                
+                CGContextSetLineWidth(ctx, 2.0)
+                CGContextSetRGBStrokeColor(ctx, red, green, 0.5, 0.75)
+                CGContextAddArc(ctx, point.x, point.y, 5.0, 0.0, 2 * CGFloat(M_PI), 1)
+                CGContextStrokePath(ctx)
+                
+                let attrs = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 36)!]
+                let pointString: NSString = "\(self!.variablePoint)"
+                pointString.drawWithRect(CGRect(x: 50.0, y: 50.0, width: 100.0, height: 100.0), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attrs, context: nil)
+                
+            }
+            
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            self?.newImg = newImage
+            
+            UIGraphicsEndImageContext()
+            
+        })
     }
     
     
@@ -70,6 +113,7 @@ class SwiftViewController: UIViewController, AFDXDetectorDelegate {
     // MARK: - Convenience methods
     // From https://github.com/Affectiva/ios-sdk-samples
     var newImg: UIImage?
+    var isProcessing = false // TODO: move all properties to Properties section
     func processedImageReady(detector: AFDXDetector, image: UIImage, faces: NSDictionary, atTime time: NSTimeInterval) {
         
         for valueObj in faces.allValues {
@@ -85,44 +129,34 @@ class SwiftViewController: UIViewController, AFDXDetectorDelegate {
             
             print(emoji)
             
+            // Leave this stuff to make writing the report easier
+            //learningPoints(image, facePointValues: facePointValues)
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { [weak self] in
                 
                 guard let _ = self else { return } // Shouldn't happen (only one controller)
                 
-                UIGraphicsBeginImageContext(image.size)
-                let ctx = UIGraphicsGetCurrentContext()
-                
-                // Experimenting to visualize which points I would like to use. Incremented green to figure out rough regions, then used red to more precisely determine.
-                let green: CGFloat = 0.5 //0.1
-                var red: CGFloat = 0.5
-                
-                let redPoints: Set<Int> = [0, 2, 4, self!.variablePoint]
-                
-                //print("Total: \(facePointValues.count)") // 34
-                for (index, facePointValue) in facePointValues.enumerate() {
-                    
-                    let point = facePointValue.CGPointValue()
-                    //green += 0.04 // using red to fine tune
-                    red = redPoints.contains(index) ? 1.0 : 0.5
-                    
-                    CGContextSetLineWidth(ctx, 2.0)
-                    CGContextSetRGBStrokeColor(ctx, red, green, 0.5, 0.75)
-                    CGContextAddArc(ctx, point.x, point.y, 5.0, 0.0, 2 * CGFloat(M_PI), 1)
-                    CGContextStrokePath(ctx)
-                    
-                    let attrs = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 36)!]
-                    let pointString: NSString = "\(self!.variablePoint)"
-                    pointString.drawWithRect(CGRect(x: 50.0, y: 50.0, width: 100.0, height: 100.0), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attrs, context: nil)
-                    
+                if self!.isProcessing {
+                    // Skip it
+                    print("**** SKIPPED ****")
+                    return
                 }
+                self!.isProcessing = true
+                
+                UIGraphicsBeginImageContext(image.size)
+                
+                let origin = facePointValues[5].CGPointValue()
+                let botRight = facePointValues[4].CGPointValue()
+                let bot = facePointValues[2].CGPointValue()
+                let rect = CGRect(x: origin.x, y: origin.y, width: botRight.x - origin.x, height: bot.y - origin.y)
+                self!.emojiImage.drawInRect(rect)
                 
                 let newImage = UIGraphicsGetImageFromCurrentImageContext()
                 self?.newImg = newImage
                 
                 UIGraphicsEndImageContext()
                 
+                self!.isProcessing = false
             })
-            
         }
         
     }

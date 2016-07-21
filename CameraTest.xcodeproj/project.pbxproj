@@ -13,8 +13,9 @@
 		6819DE671C5AA1C300E60826 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6819DE651C5AA1C300E60826 /* Main.storyboard */; };
 		6819DE691C5AA1C300E60826 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6819DE681C5AA1C300E60826 /* Assets.xcassets */; };
 		6819DE6C1C5AA1C300E60826 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6819DE6A1C5AA1C300E60826 /* LaunchScreen.storyboard */; };
-		6819DE791C5AA32200E60826 /* Affdex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6819DE781C5AA32200E60826 /* Affdex.framework */; };
-		6819DE7B1C5AA36E00E60826 /* Affdex.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6819DE781C5AA32200E60826 /* Affdex.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		914EC6321D40891E00065764 /* Affdex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914EC6301D4087E800065764 /* Affdex.framework */; };
+		914EC6331D40891E00065764 /* Affdex.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 914EC6301D4087E800065764 /* Affdex.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		914EC6351D408A3A00065764 /* ImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914EC6341D408A3A00065764 /* ImageAssets.swift */; };
 		9160F8561D374DD500599A47 /* SwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9160F8551D374DD500599A47 /* SwiftViewController.swift */; };
 		9160F8581D38ADFB00599A47 /* AffdexSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9160F8571D38ADFB00599A47 /* AffdexSwift.swift */; };
 /* End PBXBuildFile section */
@@ -26,7 +27,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6819DE7B1C5AA36E00E60826 /* Affdex.framework in Embed Frameworks */,
+				914EC6331D40891E00065764 /* Affdex.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -44,7 +45,8 @@
 		6819DE681C5AA1C300E60826 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6819DE6B1C5AA1C300E60826 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6819DE6D1C5AA1C300E60826 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6819DE781C5AA32200E60826 /* Affdex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Affdex.framework; path = ../../frameworks/Affdex.framework; sourceTree = "<group>"; };
+		914EC6301D4087E800065764 /* Affdex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Affdex.framework; sourceTree = "<group>"; };
+		914EC6341D408A3A00065764 /* ImageAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAssets.swift; sourceTree = "<group>"; };
 		9160F8541D374DD500599A47 /* CameraTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CameraTest-Bridging-Header.h"; sourceTree = "<group>"; };
 		9160F8551D374DD500599A47 /* SwiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftViewController.swift; sourceTree = "<group>"; };
 		9160F8571D38ADFB00599A47 /* AffdexSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AffdexSwift.swift; sourceTree = "<group>"; };
@@ -55,7 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6819DE791C5AA32200E60826 /* Affdex.framework in Frameworks */,
+				914EC6321D40891E00065764 /* Affdex.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,7 +67,7 @@
 		6819DE501C5AA1C300E60826 = {
 			isa = PBXGroup;
 			children = (
-				6819DE781C5AA32200E60826 /* Affdex.framework */,
+				914EC6301D4087E800065764 /* Affdex.framework */,
 				6819DE5B1C5AA1C300E60826 /* CameraTest */,
 				6819DE5A1C5AA1C300E60826 /* Products */,
 			);
@@ -89,6 +91,7 @@
 				9160F8571D38ADFB00599A47 /* AffdexSwift.swift */,
 				9160F8551D374DD500599A47 /* SwiftViewController.swift */,
 				6819DE651C5AA1C300E60826 /* Main.storyboard */,
+				914EC6341D408A3A00065764 /* ImageAssets.swift */,
 				6819DE681C5AA1C300E60826 /* Assets.xcassets */,
 				6819DE6A1C5AA1C300E60826 /* LaunchScreen.storyboard */,
 				6819DE6D1C5AA1C300E60826 /* Info.plist */,
@@ -181,6 +184,7 @@
 			files = (
 				9160F8561D374DD500599A47 /* SwiftViewController.swift in Sources */,
 				6819DE641C5AA1C300E60826 /* ViewController.m in Sources */,
+				914EC6351D408A3A00065764 /* ImageAssets.swift in Sources */,
 				6819DE611C5AA1C300E60826 /* AppDelegate.m in Sources */,
 				9160F8581D38ADFB00599A47 /* AffdexSwift.swift in Sources */,
 				6819DE5E1C5AA1C300E60826 /* main.m in Sources */,
@@ -298,7 +302,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = ../../frameworks;
+				FRAMEWORK_SEARCH_PATHS = (
+					../../frameworks,
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CameraTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.affectiva.CameraTest;
@@ -316,7 +323,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = ../../frameworks;
+				FRAMEWORK_SEARCH_PATHS = (
+					../../frameworks,
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CameraTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.affectiva.CameraTest;
